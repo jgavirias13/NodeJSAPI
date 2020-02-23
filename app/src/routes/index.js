@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 
 //Middlewares
 const cors = require('cors');
@@ -8,7 +9,7 @@ const notFoundMiddleware = require('../middlewares/notFoundMiddleware');
 const errorMiddleware = require('../middlewares/errorMiddleware');
 require('express-async-errors');
 
-module.exports = ({ HomeRoutes, IdeaRoutes, UserRoutes, CommentRoutes }) => {
+module.exports = ({ HomeRoutes, IdeaRoutes, UserRoutes, CommentRoutes, Config }) => {
   const router = express.Router();
   const apiRoutes = express.Router();
 
@@ -16,6 +17,10 @@ module.exports = ({ HomeRoutes, IdeaRoutes, UserRoutes, CommentRoutes }) => {
   apiRoutes.use(cors());
   apiRoutes.use(helmet());
   apiRoutes.use(compression());
+
+  if(Config.ENV == 'develop'){
+    apiRoutes.use(morgan('combined'));
+  }
 
   //Configuracion de rutas
   apiRoutes.use('/Home', HomeRoutes);
