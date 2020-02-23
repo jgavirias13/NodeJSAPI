@@ -1,20 +1,18 @@
 const BaseService = require('./baseService');
+const NotFoundException = require('../helpers/notFoundException');
+const RequiredFieldException = require('../helpers/requieredFieldException');
 
 let ideaRepository = null;
-let notFoundException = null;
-let requiredFieldException = null;
 
 class IdeaService extends BaseService{
-  constructor({IdeaRepository, NotFoundException, RequiredFieldException}){
+  constructor({IdeaRepository}){
     super(IdeaRepository);
     ideaRepository = IdeaRepository;
-    notFoundException = NotFoundException;
-    requiredFieldException = requiredFieldException;
   }
 
   async getUserIdeas(author){
     if(!author){
-      throw new requiredFieldException('author');
+      throw new RequiredFieldException('author');
     }
 
     return await ideaRepository.getUserIdeas(author);
@@ -22,12 +20,12 @@ class IdeaService extends BaseService{
 
   async upVoteIdea(ideaId){
     if(!ideaId){
-      throw new requiredFieldException('Idea Id');
+      throw new RequiredFieldException('Idea Id');
     }
 
     const idea = await ideaRepository.get(ideaId);
     if(!idea){
-      throw new notFoundException('Idea');
+      throw new NotFoundException('Idea');
     }
 
     idea.upVotes.push(true);
@@ -36,12 +34,12 @@ class IdeaService extends BaseService{
 
   async downVoteIdea(ideaId){
     if(!ideaId){
-      throw new requiredFieldException('Idea Id');
+      throw new RequiredFieldException('Idea Id');
     }
     
     const idea = await ideaRepository.get(ideaId);
     if(!idea){
-      throw new notFoundException('Idea');
+      throw new NotFoundException('Idea');
     }
 
     idea.downVotes.push(true);

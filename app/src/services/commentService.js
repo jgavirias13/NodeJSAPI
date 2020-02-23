@@ -1,32 +1,28 @@
 const BaseService = require('./baseService');
+const NotFoundException = require('../helpers/NotFoundException');
+const RequiredFieldException = require('../helpers/requieredFieldException');
 
 let commentRepository = null;
 let ideaRepository = null;
-let notFoundException = null;
-let requiredException = null;
 
 class CommentService extends BaseService {
   constructor({
     CommentRepository,
-    IdeaRepository,
-    NotFoundException,
-    RequiredException
+    IdeaRepository
   }) {
     super(CommentRepository);
     commentRepository = CommentRepository;
     ideaRepository = IdeaRepository;
-    notFoundException = NotFoundException;
-    requiredException = RequiredException;
   }
 
   async getIdeaComments(ideaId) {
     if (!ideaId) {
-      throw new requiredException('ideaId');
+      throw new RequiredFieldException('ideaId');
     }
 
     const idea = ideaRepository.get(ideaId);
     if (!idea) {
-      throw new notFoundException('Idea');
+      throw new NotFoundException('Idea');
     }
 
     return idea.comments;
@@ -34,12 +30,12 @@ class CommentService extends BaseService {
 
   async createComments(comment, ideaId){
     if(!ideaId){
-      throw new requiredException('IdeaId');
+      throw new RequiredFieldException('IdeaId');
     }
 
     const idea = ideaRepository.get(ideaId);
     if(!idea){
-      throw new notFoundException('Idea');
+      throw new NotFoundException('Idea');
     }
 
     const createdComment = commentRepository.create(comment);

@@ -1,23 +1,21 @@
-let notFoundException = null;
-let requiredFieldException = null;
+const NotFoundException = require('../helpers/notFoundException');
+const RequiredFieldException = require('../helpers/requieredFieldException');
 
 class BaseService{
 
-  constructor(repostitory, {NotFoundException, RequiredFieldException}){
+  constructor(repostitory){
     this.repostitory = repostitory;
-    notFoundException = NotFoundException;
-    requiredFieldException = RequiredFieldException;
   }
 
   async get(id){
     if(!id){
-      throw new requiredFieldException('id');
+      throw new RequiredFieldException('id');
     }
 
     const currentEntity = await this.repostitory.get(id);
 
     if(!currentEntity){
-      throw new notFoundException('entidad');
+      throw new NotFoundException('entidad');
     }
 
     return currentEntity;
@@ -33,7 +31,7 @@ class BaseService{
 
   async update(id, entity){
     if(!id){
-      throw new requiredFieldException('id');
+      throw new RequiredFieldException('id');
     }
 
     return await this.repostitory.update(id, entity);
@@ -41,7 +39,7 @@ class BaseService{
 
   async delete(id){
     if(!id){
-      throw new requiredFieldException('id');
+      throw new RequiredFieldException('id');
     }
 
     return await this.repostitory.delete(id);

@@ -13,10 +13,16 @@ const CommentService = require('../services/commentService');
 
 //Controladores
 const HomeController = require('../controllers/HomeController');
+const IdeaController = require('../controllers/ideaController');
+const UserController = require('../controllers/userController');
+const CommentController = require('../controllers/commentsController');
 
 //Routes
 const HomeRoutes = require('../routes/HomeRoutes');
 const IndexRoute = require('../routes/index');
+const UserRoutes = require('../routes/UserRoutes');
+const IdeaRoutes = require('../routes/IdeaRoutes');
+const CommentRoutes = require('../routes/CommentRoutes');
 
 //Models
 const userModel = require('../models/userModel');
@@ -51,12 +57,18 @@ container.register({
 
 //Controllers
 container.register({
-  HomeController: asClass(HomeController.bind(HomeController)).singleton()
+  HomeController: asClass(HomeController.bind(HomeController)).singleton(),
+  CommentController: asClass(CommentController).singleton(),
+  UserController: asClass(UserController).singleton(),
+  IdeaController: asClass(IdeaController).singleton()
 });
 
 //Routes
 container.register({
-  HomeRoutes: asFunction(HomeRoutes).singleton()
+  HomeRoutes: asFunction(HomeRoutes).singleton(),
+  UserRoutes: asFunction(UserRoutes).singleton(),
+  IdeaRoutes: asFunction(IdeaRoutes).singleton(),
+  CommentRoutes: asFunction(CommentRoutes).singleton()
 });
 
 //Models
@@ -75,8 +87,8 @@ container.register({
 
 //Exceptions
 container.register({
-  NotFoundException: asClass(notFoundException).singleton(),
-  RequiredFieldException: asClass(requiredFieldException).singleton()
+  NotFoundException: asClass(notFoundException),
+  RequiredFieldException: asClass(requiredFieldException)
 })
 
 module.exports = container;
