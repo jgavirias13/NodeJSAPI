@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Scheema = mongoose.Schema;
+const autoPopulate = require('mongoose-autopopulate');
 
 const commentScheema = new Scheema({
   comment: {type: String, required: true},
@@ -11,6 +12,7 @@ const commentScheema = new Scheema({
   }
 });
 
-mongoose.model('comment', commentScheema);
+commentScheema.plugin(autoPopulate);
 
+mongoose.model('comment', commentScheema);
 module.exports = mongoose.model('comment');
