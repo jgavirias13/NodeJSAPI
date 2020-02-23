@@ -20,6 +20,11 @@ const userModel = require('../models/userModel');
 const ideaModel = require('../models/ideaModel');
 const commentModel = require('../models/commentModel');
 
+//Repositories
+const userRepository = require('../repositories/userRepository');
+const ideaRepository = require('../repositories/ideaRepository');
+const commentRepository = require('../repositories/commentRepository');
+
 const container = createContainer();
 
 //Config
@@ -45,10 +50,17 @@ container.register({
 });
 
 //Models
-constainer.register({
+container.register({
   UserModel: asValue(userModel),
   ideaModel: asValue(ideaModel),
   CommentModel: asValue(commentModel)
+});
+
+//Repositories
+container.register({
+  UserRepository: asClass(userRepository).singleton(),
+  IdeaRepository: asClass(ideaRepository).singleton(),
+  CommentRepository: asClass(commentRepository).singleton()
 });
 
 module.exports = container;

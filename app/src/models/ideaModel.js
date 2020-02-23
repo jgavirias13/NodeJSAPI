@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Scheema = mongoose.Scheema;
+const Scheema = mongoose.Schema;
 const autoPopulate = require('mongoose-autopopulate');
 
 const ideaScheema = new Scheema({
