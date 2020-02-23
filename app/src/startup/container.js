@@ -7,6 +7,9 @@ const app = require('./index');
 
 //Servicios
 const HomeService = require('../services/homeService');
+const UserService = require('../services/userService');
+const IdeaService = require('../services/ideaService');
+const CommentService = require('../services/commentService');
 
 //Controladores
 const HomeController = require('../controllers/HomeController');
@@ -25,6 +28,10 @@ const userRepository = require('../repositories/userRepository');
 const ideaRepository = require('../repositories/ideaRepository');
 const commentRepository = require('../repositories/commentRepository');
 
+//Exceptions
+const notFoundException = require('../helpers/notFoundException');
+const requiredFieldException = require('../helpers/requieredFieldException');
+
 const container = createContainer();
 
 //Config
@@ -36,7 +43,10 @@ container.register({
 
 //Services
 container.register({
-  HomeService: asClass(HomeService).singleton()
+  HomeService: asClass(HomeService).singleton(),
+  IdeaService: asClass(IdeaService).singleton(),
+  UserService: asClass(UserService).singleton(),
+  CommentService: asClass(CommentService).singleton()
 });
 
 //Controllers
@@ -62,5 +72,11 @@ container.register({
   IdeaRepository: asClass(ideaRepository).singleton(),
   CommentRepository: asClass(commentRepository).singleton()
 });
+
+//Exceptions
+container.register({
+  NotFoundException: asClass(notFoundException).singleton(),
+  RequiredFieldException: asClass(requiredFieldException).singleton()
+})
 
 module.exports = container;
