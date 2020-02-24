@@ -25,6 +25,7 @@ const IndexRoute = require('../routes/index');
 const UserRoutes = require('../routes/UserRoutes');
 const IdeaRoutes = require('../routes/IdeaRoutes');
 const CommentRoutes = require('../routes/CommentRoutes');
+const AuthRoutes = require('../routes/AuthRoutes');
 
 //Models
 const userModel = require('../models/userModel');
@@ -72,7 +73,8 @@ container.register({
   HomeRoutes: asFunction(HomeRoutes).singleton(),
   UserRoutes: asFunction(UserRoutes).singleton(),
   IdeaRoutes: asFunction(IdeaRoutes).singleton(),
-  CommentRoutes: asFunction(CommentRoutes).singleton()
+  CommentRoutes: asFunction(CommentRoutes).singleton(),
+  AuthRoutes: asFunction(AuthRoutes).singleton()
 });
 
 //Models

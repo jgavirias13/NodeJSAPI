@@ -1,5 +1,5 @@
 const jwtHelper = require('../helpers/jwtHelper');
-const userService = null;
+let userService = null;
 const DuplicatedException = require('../helpers/duplicatedException');
 const NotFoundException = require('../helpers/notFoundException');
 const InvalidPasswordException = require('../helpers/invalidPasswordException');
