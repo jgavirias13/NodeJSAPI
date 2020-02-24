@@ -6,7 +6,7 @@ let userRepository = null;
 class UserService extends BaseService{
   constructor({UserRepository}){
     super(UserRepository);
-    this.userRepository = UserRepository;
+    userRepository = UserRepository;
   }
 
   async getUserByUsername(username){
