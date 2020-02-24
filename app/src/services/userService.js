@@ -1,4 +1,5 @@
 const BaseService = require('./baseService');
+const RequiredFieldException = require('../helpers/requieredFieldException');
 
 let userRepository = null;
 
@@ -9,7 +10,9 @@ class UserService extends BaseService{
   }
 
   async getUserByUsername(username){
-    this.validarElemento(username, 'Username');
+    if(!username){
+      throw new RequiredFieldException('Username');
+    }
 
     return await userRepository.getUserByUsername(username);
   }
