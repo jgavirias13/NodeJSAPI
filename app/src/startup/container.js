@@ -17,6 +17,7 @@ const HomeController = require('../controllers/HomeController');
 const IdeaController = require('../controllers/ideaController');
 const UserController = require('../controllers/userController');
 const CommentController = require('../controllers/commentsController');
+const AuthController = require('../controllers/authController');
 
 //Routes
 const HomeRoutes = require('../routes/HomeRoutes');
@@ -62,7 +63,8 @@ container.register({
   HomeController: asClass(HomeController.bind(HomeController)).singleton(),
   CommentController: asClass(CommentController).singleton(),
   UserController: asClass(UserController).singleton(),
-  IdeaController: asClass(IdeaController).singleton()
+  IdeaController: asClass(IdeaController).singleton(),
+  AuthController: asClass(AuthController).singleton()
 });
 
 //Routes
