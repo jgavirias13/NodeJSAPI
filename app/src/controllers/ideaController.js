@@ -12,7 +12,10 @@ class IdeaController {
   }
 
   async getAll(req, res) {
-    const ideas = await ideaService.getAll();
+    const pageSize = req.query.pageSize;
+    const pageNum = req.query.pageNum;
+
+    const ideas = await ideaService.getAll(pageSize, pageNum);
     return res.send(ideas);
   }
 
