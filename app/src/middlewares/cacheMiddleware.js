@@ -1,8 +1,8 @@
 const mcache = require('memory-cache');
 const container = require('../startup/container');
-const config = container.resolve('Config');
+const config = require('../config/config');
 
-module.exports = (req, res, next) => {
+module.exports = (duration) => {
   return (req,res,next) => {
     const key = config.CACHE_KEY + req.originUrl || req.url;
     const cachedBody = mcache.get(key);
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     }else{
       res.sendResponse = res.send;
       res.send = body => {
-        mcache.put(key, sendResponse, duration*1000);
+        mcache.put(key, body, duration*1000);
         res.sendResponse(body);
       };
       next();
