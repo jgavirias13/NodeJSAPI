@@ -4,7 +4,7 @@
   "description": "API example in NodeJS with best practice",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node app.js",
     "dev": "nodemon -L app.js"
   },
