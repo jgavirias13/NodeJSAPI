@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const swaggerUI = require('swagger-ui-express');
 
 //Middlewares
 const cors = require('cors');
@@ -19,6 +20,7 @@ module.exports = ({
 }) => {
   const router = express.Router();
   const apiRoutes = express.Router();
+  const swaggerDocument = require(`../config/swagger/${Config.SWAGGER_DOC}.json`);
 
   apiRoutes.use(express.json());
   apiRoutes.use(cors());
@@ -37,6 +39,7 @@ module.exports = ({
   apiRoutes.use('/auth', AuthRoutes);
 
   router.use('/v1/api', apiRoutes);
+  router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
   //Middlewares
   router.use(notFoundMiddleware);
