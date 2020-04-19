@@ -1,5 +1,5 @@
 const BaseService = require('./baseService');
-const NotFoundException = require('../helpers/NotFoundException');
+const NotFoundException = require('../helpers/notFoundException');
 const RequiredFieldException = require('../helpers/requieredFieldException');
 
 let commentRepository = null;
